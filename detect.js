@@ -44,7 +44,11 @@ async function compareScreenshots() {
     diffCtx.putImageData(diffData, 0, 0);
     const out = fs.createWriteStream(DIFF_SCREENSHOT_PATH);
     const stream = diff.createPNGStream();
-    stream.pipe(out);
+    await new Promise((resolve, reject) => {
+        stream.pipe(out);
+        stream.on('end', resolve);
+        stream.on('error', reject);
+    });
 
     return numDiffPixels;
 }
