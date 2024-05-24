@@ -39,7 +39,7 @@ async function compareScreenshots() {
     const diffCtx = diff.getContext('2d');
     const diffData = diffCtx.createImageData(width, height);
 
-    const numDiffPixels = pixelmatch(img1Data.data, img2Data.data, diffData.data, width, height, { threshold: 0.1 });
+    const numDiffPixels = pixelmatch(img1Data.data, img2Data.data, diffData.data, width, height, { threshold: 0 });
 
     diffCtx.putImageData(diffData, 0, 0);
     const out = fs.createWriteStream(DIFF_SCREENSHOT_PATH);
